@@ -1,24 +1,19 @@
 import 'package:analyzer_x/analyzer_x.dart';
 
+import '../model/xxmodel.dart';
+
 class GitService {
-  Future<String> generateCommitMessage({
-    required String projPath,
-    bool staged = true,
-    bool unstaged = false,
-    String extraMsg = '',
-    int msgCount = 1,
-    int maxLines = 20,
-  }) async {
+  Future<String> generateCommitMessage(GitCommitMsgParam param) async {
     final analyzer = AICommitAnalyzer.fromPath(
-      projPath,
-      msgCount: msgCount,
-      maxLines: maxLines,
+      param.projPath,
+      msgCount: param.msgCount,
+      maxLines: param.maxLines,
     );
-    
+
     return analyzer.generateCommitMessage(
-      staged: staged,
-      unstaged: unstaged,
-      extraMsg: extraMsg,
+      staged: param.staged,
+      unstaged: param.unstaged,
+      extraMsg: param.extraMsg,
       justPrint: true,
     );
   }

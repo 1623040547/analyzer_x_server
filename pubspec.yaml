@@ -15,3 +15,9 @@ dependencies:
   analyzer_x:
     path: ../analyzer_helper
   logging: ^1.2.0
+  json_annotation: any
+
+dev_dependencies:
+  #dart run相关
+  build_runner: any
+  json_serializable: any
