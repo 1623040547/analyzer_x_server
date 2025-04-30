@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:analyzer_x/analyzer_x.dart';
 
-import '../../model/xxmodel.dart';
+import 'package:analyzer_x_server/model/xxmodel.dart';
 
 class ProjectService {
   Future<ProjectModel?> buildProject(String path) async {

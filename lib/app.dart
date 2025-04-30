@@ -1,4 +1,5 @@
 import 'package:analyzer_x_server/module/project/project_controller.dart';
+import 'package:analyzer_x_server/module/resource/resource_controller.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
 import 'module/git/git_controller.dart';
@@ -33,6 +34,7 @@ extension AppHandler on App {
     router.mount('/health', HealthController().router);
     router.mount('/git', GitController().router);
     router.mount('/project', ProjectController().router);
+    router.mount('/resource', ResourceController().router);
 
     router.all(
       '/<ignored|.*>',
