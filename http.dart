@@ -43,7 +43,7 @@ class GitAnalysisServer {
             return shelf.Response.badRequest(body: '项目路径不能为空');
           }
 
-          final analyzer = AICommitAnalyzer.fromPath(
+          final analyzer = CommitPromptAnalyzer.fromPath(
             projPath,
             msgCount: msgCount,
             maxLines: maxLines,
@@ -64,7 +64,7 @@ class GitAnalysisServer {
             return shelf.Response.badRequest(body: '项目路径不能为空');
           }
 
-          final analyzer = AIVersionAnalyzer.fromPath(projPath);
+          final analyzer = VersionPromptAnalyzer.fromPath(projPath);
           final versions = await analyzer.tags();
           
           return shelf.Response.ok(versions.join(','));
@@ -78,7 +78,7 @@ class GitAnalysisServer {
             return shelf.Response.badRequest(body: '项目路径不能为空');
           }
 
-          final analyzer = AIVersionAnalyzer.fromPath(projPath);
+          final analyzer = VersionPromptAnalyzer.fromPath(projPath);
           final analysis = version == null 
               ? await analyzer.analyzeLatestVersion()
               : await analyzer.analyzeVersion(version);

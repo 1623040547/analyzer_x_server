@@ -4,7 +4,7 @@ import 'package:analyzer_x_server/model/xxmodel.dart';
 
 class GitService {
   Future<String> generateCommitMessage(GitCommitMsgParam param) async {
-    final analyzer = AICommitAnalyzer.fromPath(
+    final analyzer = CommitPromptAnalyzer.fromPath(
       param.projPath,
       msgCount: param.msgCount,
       maxLines: param.maxLines,
@@ -19,12 +19,14 @@ class GitService {
   }
 
   Future<List<String>> getVersions(String projPath) async {
-    final analyzer = AIVersionAnalyzer.fromPath(projPath);
+    final analyzer = VersionPromptAnalyzer.fromPath(projPath);
     return analyzer.tags();
   }
 
   Future<String> analyzeVersion(String projPath, {String? version}) async {
-    final analyzer = AIVersionAnalyzer.fromPath(projPath);
+    final analyzer = VersionPromptAnalyzer.fromPath(
+      projPath,
+    );
     return version == null
         ? analyzer.analyzeLatestVersion()
         : analyzer.analyzeVersion(version);
