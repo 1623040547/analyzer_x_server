@@ -1,6 +1,6 @@
 import 'package:analyzer_x/analyzer_x.dart';
 
-import '../model/xxmodel.dart';
+import 'package:analyzer_x_server/model/xxmodel.dart';
 
 class GitService {
   Future<String> generateCommitMessage(GitCommitMsgParam param) async {

@@ -1,29 +1,9 @@
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
-import 'controllers/git_controller.dart';
-import 'controllers/health_controller.dart';
+import 'module/git/git_controller.dart';
+import 'module/health/health_controller.dart';
 
 class App {
-  Handler get handler {
-    final router = Router();
-
-    // 健康检查
-    router.mount('/health', HealthController().router);
-    
-    // Git 分析相关接口
-    router.mount('/git', GitController().router);
-
-    // 404 处理
-    router.all('/<ignored|.*>', (Request request) {
-      return Response.notFound('未找到请求的接口');
-    });
-
-    return Pipeline()
-        .addMiddleware(logRequests())
-        .addMiddleware(_handleCors())
-        .addHandler(router);
-  }
-
   Middleware _handleCors() {
     return createMiddleware(
       requestHandler: (Request request) {
@@ -43,4 +23,22 @@ class App {
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
     'Access-Control-Allow-Headers': 'Origin, Content-Type',
   };
+}
+
+extension AppHandler on App {
+  Handler get handler {
+    final router = Router();
+
+    router.mount('/health', HealthController().router);
+    router.mount('/git', GitController().router);
+
+    router.all(
+      '/<ignored|.*>',
+      (Request request) => Response.notFound('未找到请求的接口'),
+    );
+    return Pipeline()
+        .addMiddleware(logRequests())
+        .addMiddleware(_handleCors())
+        .addHandler(router);
+  }
 }

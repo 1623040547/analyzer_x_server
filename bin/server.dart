@@ -12,7 +12,7 @@ void main(List<String> args) async {
   });
 
   final logger = Logger('GitAnalysisServer');
-  
+
   // 解析命令行参数
   final parser = ArgParser()
     ..addOption('port', abbr: 'p', defaultsTo: '8080')
